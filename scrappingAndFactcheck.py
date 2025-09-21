@@ -7,7 +7,12 @@ import google.generativeai as genai
 import os
 import requests
 import json
-from dotenv import load_dotenv
+try:
+    from dotenv import load_dotenv
+    load_dotenv("key.env")
+except (ImportError, FileNotFoundError):
+    # Running in production - use environment variables from Railway dashboard
+    pass
 from datetime import datetime
 import logging
 import random
