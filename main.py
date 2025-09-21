@@ -9,7 +9,12 @@ from datetime import datetime
 import uuid
 from functools import wraps
 import logging
-from dotenv import load_dotenv
+try:
+    from dotenv import load_dotenv
+    load_dotenv("key.env")
+except (ImportError, FileNotFoundError):
+    # Running in production - use environment variables from Railway dashboard
+    pass
 from contextlib import contextmanager
 from concurrent.futures import ThreadPoolExecutor
 
@@ -696,3 +701,4 @@ if __name__ == "__main__":
         print("   GET  /list-results - List result files")
         
         app.run(debug=False, host='0.0.0.0', port=5000, threaded=True)
+
